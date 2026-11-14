@@ -1,0 +1,740 @@
+/* =============================================
+   FILE: style.css
+   Trang web CLB Kết Nối - VNUA
+   ============================================= */
+
+
+/* =============================================
+   PHẦN 1: MÀU SẮC VÀ FONT CHỮ DÙNG CHUNG
+   (Khai báo 1 lần, dùng lại ở khắp nơi)
+   ============================================= */
+:root {
+  --mau-xanh: #3058a8;         /* Màu xanh chính */
+  --mau-xanh-dam: #203888;     /* Màu xanh đậm hơn */
+  --mau-vang: #f2c200;         /* Màu vàng nhấn */
+  --mau-trang: #ffffff;        /* Màu trắng */
+  --mau-nen-nhat: #f3f6fb;     /* Màu nền xám nhạt */
+  --mau-chu: #1c2540;          /* Màu chữ chính (tối) */
+  --mau-chu-phu: #55607a;      /* Màu chữ phụ (xám) */
+  --mau-vien: #d6deee;         /* Màu viền */
+  --bo-goc: 14px;              /* Độ bo tròn góc */
+  --font-chu: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+
+/* =============================================
+   PHẦN 2: RESET - Xóa kiểu mặc định của trình duyệt
+   ============================================= */
+
+/* Tất cả phần tử dùng box-sizing: border-box
+   (padding và border tính vào trong kích thước, không bị tràn ra ngoài) */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Toàn trang */
+html {
+  scroll-behavior: smooth;    /* Cuộn trang mượt mà khi click link */
+  scroll-padding-top: 76px;   /* Bù lại header dính ở trên khi cuộn */
+}
+
+/* Thân trang */
+body {
+  margin: 0;                      /* Xóa khoảng trắng mặc định */
+  font-family: var(--font-chu);   /* Font chữ dùng chung */
+  color: var(--mau-chu);          /* Màu chữ mặc định */
+  line-height: 1.65;              /* Giãn dòng cho dễ đọc */
+}
+
+/* Hình ảnh không tràn ra ngoài khung */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Tiêu đề h1 đến h4 */
+h1, h2, h3, h4 {
+  color: var(--mau-xanh-dam);
+  line-height: 1.25;
+  margin: 0 0 0.5em;    /* Khoảng cách bên dưới tiêu đề */
+}
+
+/* Đoạn văn */
+p {
+  margin: 0 0 1em;      /* Khoảng cách bên dưới đoạn văn */
+}
+
+/* Liên kết */
+a {
+  color: var(--mau-xanh);
+}
+
+
+/* =============================================
+   PHẦN 3: KHUNG CHỨA VÀ CÁC LỚP TIỆN ÍCH
+   ============================================= */
+
+/* Khung container: giới hạn chiều rộng và căn giữa trang */
+.container {
+  max-width: 1080px;    /* Rộng tối đa 1080px */
+  margin: 0 auto;       /* Căn giữa */
+  padding: 0 20px;      /* Khoảng cách 2 bên */
+}
+
+/* Section (mỗi phần lớn của trang) */
+.section {
+  padding: 64px 0;      /* Khoảng trên dưới rộng rãi */
+}
+
+/* Section nền xám nhạt (xen kẽ nhau cho dễ nhìn) */
+.section-alt {
+  background: var(--mau-nen-nhat);
+}
+
+/* Chữ mô tả nhỏ dưới tiêu đề section */
+.section-sub {
+  color: var(--mau-chu-phu);
+  max-width: 62ch;          /* Giới hạn độ rộng cho dễ đọc */
+  margin-bottom: 28px;
+}
+
+/* Nút bỏ qua điều hướng (dành cho người dùng bàn phím - accessibility) */
+.skip {
+  position: absolute;
+  left: -999px;    /* Ẩn ra ngoài màn hình */
+}
+.skip:focus {
+  left: 8px;
+  top: 8px;
+  background: var(--mau-xanh-dam);
+  color: #fff;
+  padding: 8px 14px;
+  z-index: 100;    /* Hiện lên trên tất cả khi được focus */
+}
+
+
+/* =============================================
+   PHẦN 4: HEADER (Thanh điều hướng trên cùng)
+   ============================================= */
+
+/* Thanh header dính ở trên khi cuộn */
+.site-header {
+  position: sticky;          /* Dính ở trên khi cuộn trang */
+  top: 0;
+  z-index: 50;               /* Hiện lên trên nội dung trang */
+  background: #fff;
+  border-bottom: 3px solid var(--mau-vang);   /* Viền vàng bên dưới */
+}
+
+/* Bên trong header: logo bên trái, menu bên phải */
+.header-inner {
+  display: flex;             /* Dàn hàng ngang */
+  align-items: center;       /* Căn giữa theo chiều dọc */
+  justify-content: space-between;    /* Logo trái, menu phải */
+  gap: 16px;
+  flex-wrap: wrap;           /* Xuống dòng nếu không đủ chỗ */
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* Logo + tên CLB */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  color: var(--mau-xanh-dam);
+  text-decoration: none;     /* Bỏ gạch chân */
+}
+
+/* Danh sách menu điều hướng */
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  list-style: none;    /* Bỏ dấu chấm đầu dòng */
+  margin: 0;
+  padding: 0;
+}
+
+/* Từng mục menu */
+.nav-list a {
+  display: block;
+  padding: 6px 12px;
+  border-radius: 999px;      /* Bo tròn hoàn toàn (hình viên thuốc) */
+  color: var(--mau-chu);
+  text-decoration: none;
+}
+
+/* Khi di chuột vào mục menu */
+.nav-list a:hover {
+  background: var(--mau-nen-nhat);
+  color: var(--mau-xanh);
+}
+
+
+/* =============================================
+   PHẦN 5: HERO (Banner lớn đầu trang)
+   ============================================= */
+
+/* Phần hero - nền xanh đậm */
+.hero {
+  background: var(--mau-xanh-dam);
+  color: #fff;
+  padding: 56px 0 64px;
+}
+
+/* Tiêu đề lớn trong hero - màu trắng, cỡ chữ linh hoạt */
+.hero h1 {
+  color: #fff;
+  font-size: clamp(2rem, 5vw, 3rem);    /* Tự điều chỉnh cỡ chữ theo màn hình */
+}
+
+/* Bên trong hero: logo trái, chữ phải */
+.hero-inner {
+  display: grid;
+  gap: 28px;
+  align-items: center;
+}
+
+/* Logo tròn trong hero */
+.hero-logo {
+  width: 160px;
+  height: auto;
+  background: #fff;
+  border-radius: 50%;    /* Làm tròn thành hình tròn */
+  padding: 6px;
+}
+
+/* Chữ nhỏ trên tiêu đề (badge) */
+.eyebrow {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.14);    /* Trắng mờ */
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+/* Đoạn chữ mô tả trong hero */
+.lead {
+  color: #e3e9f7;        /* Màu trắng hơi xanh, dịu hơn trắng thuần */
+  max-width: 60ch;
+}
+
+/* Nhóm 2 nút bấm trong hero */
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+
+/* =============================================
+   PHẦN 6: NÚT BẤM (Button)
+   ============================================= */
+
+/* Style chung cho tất cả nút */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 999px;      /* Hình viên thuốc */
+  font-weight: 600;
+  text-decoration: none;
+  border: 2px solid transparent;
+  cursor: pointer;           /* Con trỏ hình bàn tay khi hover */
+  font-size: 1rem;           /* Cỡ chữ bình thường */
+}
+
+/* Nút chính - nền vàng */
+.btn-primary {
+  background: var(--mau-vang);
+  color: var(--mau-xanh-dam);
+}
+.btn-primary:hover {
+  background: #ffd633;    /* Vàng sáng hơn khi hover */
+}
+
+/* Nút phụ - viền trắng (dùng trên nền tối) */
+.btn-ghost {
+  border-color: #fff;
+  color: #fff;
+}
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* Nút gửi form - rộng toàn bộ */
+.btn-gui {
+  width: 100%;
+  margin-top: 8px;
+  font-size: 1.05rem;
+  padding: 14px 24px;
+}
+
+
+/* =============================================
+   PHẦN 7: THẺ HOẠT ĐỘNG (Cards)
+   ============================================= */
+
+/* Lưới chứa các thẻ - mặc định 1 cột */
+.cards {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+}
+
+/* Một thẻ hoạt động */
+.card {
+  background: #fff;
+  border: 1px solid var(--mau-vien);
+  border-top: 4px solid var(--mau-vang);    /* Viền vàng trên đầu */
+  border-radius: var(--bo-goc);
+  padding: 24px;
+}
+
+
+/* =============================================
+   PHẦN 8: DANH SÁCH GIÁ TRỊ (Giới thiệu)
+   ============================================= */
+
+.values {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+/* Mỗi dòng giá trị - có viền vàng bên trái */
+.values li {
+  padding: 14px 16px;
+  border-left: 4px solid var(--mau-vang);
+  background: var(--mau-nen-nhat);
+  border-radius: 0 var(--bo-goc) var(--bo-goc) 0;    /* Bo tròn góc bên phải */
+}
+
+
+/* =============================================
+   PHẦN 9: BẢNG LỊCH SINH HOẠT
+   ============================================= */
+
+/* Bọc ngoài bảng để cuộn ngang trên màn hình nhỏ */
+.table-wrap {
+  overflow-x: auto;
+}
+
+/* Bảng */
+table {
+  width: 100%;
+  border-collapse: collapse;    /* Gộp viền ô lại */
+  min-width: 520px;             /* Rộng tối thiểu */
+}
+
+/* Tiêu đề bảng */
+caption {
+  text-align: left;
+  font-weight: 600;
+  padding-bottom: 8px;
+}
+
+/* Ô trong bảng */
+th, td {
+  padding: 12px 14px;
+  border: 1px solid var(--mau-vien);
+  text-align: left;
+}
+
+/* Hàng tiêu đề bảng - nền xanh, chữ trắng */
+th {
+  background: var(--mau-xanh);
+  color: #fff;
+}
+
+
+/* =============================================
+   PHẦN 10: CƠ CẤU TỔ CHỨC
+   ============================================= */
+
+/* Khung cơ cấu tổ chức */
+.org {
+  display: grid;
+  gap: 20px;
+}
+
+/* Mỗi hàng cấp bậc - mặc định 1 cột */
+.org-level {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+}
+
+/* Thẻ vai trò */
+.role {
+  background: #fff;
+  border: 1px solid var(--mau-vien);
+  border-radius: var(--bo-goc);
+  padding: 16px 18px;
+}
+
+/* Tên người trong vai trò (thông thường) */
+.role .name {
+  font-weight: 700;
+  color: var(--mau-xanh);
+}
+
+/* === TÊN NỔI BẬT: Chủ nhiệm và Phó chủ nhiệm === */
+.ten-noi-bat {
+  font-size: 1.3rem;             /* Chữ to hơn */
+  font-weight: 800;              /* Đậm nhất */
+  letter-spacing: 0.5px;        /* Giãn chữ chút */
+  margin: 6px 0 10px;
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--mau-vang);  /* Nền vàng */
+  color: var(--mau-xanh-dam);   /* Chữ xanh đậm */
+}
+
+/* Thẻ Chủ nhiệm - nền xanh đậm */
+.role-top {
+  background: var(--mau-xanh-dam);
+  border-color: var(--mau-xanh-dam);
+  text-align: center;
+  padding: 24px 18px;
+}
+.role-top h3,
+.role-top p:not(.ten-noi-bat) {
+  color: #fff;
+}
+/* Tên Chủ nhiệm: chữ đậm, nền vàng nổi bật */
+.role-top .ten-noi-bat {
+  font-size: 1.5rem;
+  background: var(--mau-vang);
+  color: var(--mau-xanh-dam);
+}
+
+/* Thẻ Phó chủ nhiệm - viền xanh, nền xanh nhạt */
+.role-pho {
+  background: #eef2fc;
+  border: 2px solid var(--mau-xanh);
+  border-radius: var(--bo-goc);
+  padding: 20px 18px;
+  text-align: center;
+}
+.role-pho h3 {
+  color: var(--mau-xanh-dam);
+}
+/* Tên Phó chủ nhiệm: nổi bật trên nền xanh nhạt */
+.role-pho .ten-noi-bat {
+  font-size: 1.25rem;
+  background: var(--mau-xanh-dam);
+  color: #fff;
+}
+
+/* Thẻ các Ban - có viền vàng trên đầu */
+.role-ban {
+  border-top: 4px solid var(--mau-vang);
+}
+
+
+/* =============================================
+   PHẦN 11: FORM ĐĂNG KÝ TRỰC TIẾP
+   ============================================= */
+
+/* Khung bọc form - nền xám nhạt, viền xanh */
+.form-box {
+  background: var(--mau-nen-nhat);
+  border: 2px solid var(--mau-vien);
+  border-radius: var(--bo-goc);
+  padding: 32px;
+  margin-top: 32px;
+  max-width: 560px;             /* Form không quá rộng cho dễ đọc */
+}
+
+.form-box h3 {
+  margin-bottom: 20px;
+  color: var(--mau-xanh-dam);
+}
+
+/* Form thực sự */
+.form-dang-ky {
+  display: grid;
+  gap: 18px;                    /* Khoảng cách giữa các ô nhập */
+}
+
+/* Nhóm mỗi ô nhập: nhãn ở trên, input ở dưới */
+.form-nhom {
+  display: flex;
+  flex-direction: column;       /* Xếp dọc: nhãn rồi đến ô nhập */
+  gap: 6px;
+}
+
+/* Nhãn (label) của ô nhập */
+.form-nhom label {
+  font-weight: 600;
+  color: var(--mau-xanh-dam);
+  font-size: 0.95rem;
+}
+
+/* Dấu * màu đỏ bên cạnh nhãn bắt buộc */
+.bat-buoc {
+  color: #e53935;
+  font-weight: 700;
+}
+
+/* Ô nhập liệu (input) */
+.form-nhom input {
+  padding: 10px 14px;
+  border: 1.5px solid var(--mau-vien);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: var(--font-chu);
+  color: var(--mau-chu);
+  background: #fff;
+  transition: border-color 0.2s;    /* Hiệu ứng đổi màu viền */
+}
+
+/* Ô nhập khi được chọn (focus) - viền xanh */
+.form-nhom input:focus {
+  outline: none;
+  border-color: var(--mau-xanh);
+  box-shadow: 0 0 0 3px rgba(48, 88, 168, 0.15);    /* Hào quang xanh nhạt */
+}
+
+/* Thông báo thành công sau khi gửi */
+.thong-bao-thanh-cong {
+  background: #e8f5e9;          /* Nền xanh lá nhạt */
+  border: 2px solid #66bb6a;    /* Viền xanh lá */
+  border-radius: var(--bo-goc);
+  padding: 20px 24px;
+  color: #2e7d32;               /* Chữ xanh lá đậm */
+  font-size: 1.05rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+
+/* =============================================
+   PHẦN 12: DANH SÁCH & CÁC BƯỚC (Tuyển thành viên)
+   ============================================= */
+
+/* Danh sách thông tin đăng ký (dạng tag/nhãn) */
+.info-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+}
+
+.info-list li {
+  background: var(--mau-nen-nhat);
+  border: 1px solid var(--mau-vien);
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+
+/* Các bước quy trình đăng ký */
+.steps {
+  list-style: none;
+  counter-reset: step;      /* Đặt lại bộ đếm số bước */
+  padding: 0;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+}
+
+/* Mỗi bước */
+.steps li {
+  counter-increment: step;          /* Tăng số bước lên 1 */
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--mau-vien);
+  border-radius: var(--bo-goc);
+  padding: 18px 18px 18px 64px;    /* Chừa chỗ bên trái cho số bước */
+}
+
+/* Vòng tròn số bước (tạo tự động bằng CSS) */
+.steps li::before {
+  content: counter(step);           /* Hiển thị số bước */
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--mau-vang);
+  color: var(--mau-xanh-dam);
+  font-weight: 700;
+  display: grid;
+  place-items: center;              /* Căn giữa số trong vòng tròn */
+}
+
+
+/* =============================================
+   PHẦN 13: LIÊN HỆ
+   ============================================= */
+
+/* Danh sách thông tin liên hệ */
+.contact {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+
+/* Mỗi mục liên hệ */
+.contact div {
+  background: #fff;
+  border: 1px solid var(--mau-vien);
+  border-radius: var(--bo-goc);
+  padding: 14px 18px;
+}
+
+/* Nhãn (Email, Điện thoại, Fanpage) */
+.contact dt {
+  font-weight: 700;
+  color: var(--mau-xanh-dam);
+}
+
+/* Giá trị */
+.contact dd {
+  margin: 0;
+}
+
+
+/* =============================================
+   PHẦN 14: GHI CHÚ VÀ FOOTER
+   ============================================= */
+
+/* Chữ ghi chú nhỏ, nghiêng, màu xám */
+.note {
+  color: var(--mau-chu-phu);
+  font-style: italic;
+}
+
+/* Footer cuối trang */
+.site-footer {
+  background: var(--mau-xanh-dam);
+  color: #dbe3f6;
+  padding: 24px 0;
+  font-size: 0.92rem;
+}
+
+.site-footer a {
+  color: #fff;
+}
+
+/* Bên trong footer */
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Dòng thông tin quản trị web - nổi bật chút */
+.admin-info {
+  color: #c8d8f8;      /* Màu xanh nhạt */
+  font-size: 0.9rem;
+}
+
+.admin-info strong {
+  color: var(--mau-vang);    /* Tên admin màu vàng */
+}
+
+
+/* =============================================
+   PHẦN 15: FOCUS - Viền nổi bật khi dùng bàn phím
+   (Quan trọng cho accessibility)
+   ============================================= */
+a:focus-visible,
+.btn:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--mau-vang);
+  outline-offset: 3px;
+}
+
+
+/* =============================================
+   PHẦN 16: RESPONSIVE - Điều chỉnh theo kích thước màn hình
+   ============================================= */
+
+/* --- Màn hình trung bình (tablet): từ 640px trở lên --- */
+@media (min-width: 640px) {
+
+  /* Thẻ hoạt động và bước quy trình: 2 cột */
+  .cards,
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Cơ cấu tổ chức: 2 cột */
+  .org-level {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Hàng đầu và hàng cuối (Chủ nhiệm, Thành viên): 1 cột, căn giữa */
+  .org-level:first-child,
+  .org-level:last-child {
+    grid-template-columns: minmax(0, 420px);
+    justify-content: center;
+  }
+
+  /* Hàng 3 ban: 3 cột */
+  .org-level-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Form trên tablet: giữ nguyên 1 cột nhưng rộng hơn */
+  .form-box {
+    max-width: 480px;
+  }
+}
+
+/* --- Màn hình lớn (desktop): từ 960px trở lên --- */
+@media (min-width: 960px) {
+
+  /* Thẻ hoạt động: 3 cột */
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Liên hệ: 3 cột ngang */
+  .contact {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Hero: logo trái, chữ phải */
+  .hero-inner {
+    grid-template-columns: auto 1fr;
+    gap: 48px;
+  }
+
+  /* Logo hero to hơn */
+  .hero-logo {
+    width: 220px;
+  }
+}
+
+/* --- Màn hình nhỏ (điện thoại): tối đa 520px --- */
+@media (max-width: 520px) {
+
+  /* Header: căn giữa cả logo lẫn menu */
+  .header-inner {
+    justify-content: center;
+  }
+
+  .nav-list {
+    justify-content: center;
+  }
+
+  /* Section ít padding hơn để tiết kiệm không gian */
+  .section {
+    padding: 48px 0;
+  }
+
+  /* Form trên điện thoại: padding nhỏ hơn */
+  .form-box {
+    padding: 20px 16px;
+  }
+}
